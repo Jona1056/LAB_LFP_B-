@@ -1,47 +1,65 @@
-PROGRAM ejemplofunciones
-    IMPLICIT NONE
+PROGRAM EjemploFunciones
+  IMPLICIT NONE
 
-    REAL :: numero, resultado
-    REAL :: numero1, numero2
-    REAL :: nota_calificacion
+  REAL :: numero, resultado
+  REAL :: numero1, numero2  
+  REAL :: nota_calificacion
 
-    PRINT *, 'Ingrese un numero:'
-    READ *, numero
-    resultado = Cuadrado(numero)
-    print *, 'El cuadrado de ', numero, ' es ', resultado
+  ! Leer un número del usuario
+  PRINT *, 'Introduce un número:'
+  READ *, numero
 
+  ! Llamar a la función Cuadrado
+  resultado = Cuadrado(numero)
 
-    print *, 'INTRODUCE LA NOTA DE LA CALIFICACION: '
-    READ *, nota_calificacion
-    IF (esAprobado(nota_calificacion)) THEN
-     print *, 'Esta aprobado!'
-    ELSE
-     print *, 'Esta reprobado!'
-    END IF
+  ! Mostrar el resultado
+  PRINT *, 'El cuadrado de ', numero, ' es ', resultado
+  
+  PRINT *, 'Introduce dos números:'
+  PRINT *, 'Número 1:'
+  READ *, numero1
+  PRINT *, 'Número 2:'
+  READ *, numero2
+    ! Llamar a la función SumaCuadrados
+  resultado = SumaCuadrados(numero1, numero2)
+  PRINT *, 'La suma de los cuadrados de ', numero1, ' y ', numero2, ' es ', resultado
 
- CONTAINS
+  print *, 'Introduce la nota de la calificación:'
+    read *, nota_calificacion
+    if (esAprobado(nota_calificacion)) then
+        print *, 'El estudiante ha aprobado'
+    else
+        print *, 'El estudiante ha reprobado'
+    end if
+    CONTAINS
 
- LOGICAL FUNCTION esAprobado(calificacion)
-
- REAL, INTENT(IN) :: calificacion
- If (calificacion < 61) THEN
-    esAprobado = .FALSE.
-    ELSE
-    esAprobado =.TRUE.
-    END IF
-
- END FUNCTION esAprobado
-
-
+  ! Definición de la función Cuadrado
  Integer FUNCTION Cuadrado(x) 
-
     REAL, INTENT(IN) :: x
-    ! TIPO IGUAL AL QUE VIENE, 
-    !INTENT(IN)
-    !INTENT(OUT)
-    !INTENT(INOUT)
-
+  
     Cuadrado = x**2
   END FUNCTION Cuadrado
-  
-END PROGRAM ejemplofunciones
+
+  Integer FUNCTION SumaCuadrados(x, y)
+    REAL, INTENT(IN) :: x, y
+    REAL :: suma, numero1, numero2
+    
+    numero1 = Cuadrado(x)
+    numero2 = Cuadrado(y)
+    SumaCuadrados = numero1 + numero2
+  END FUNCTION SumaCuadrados
+
+  Logical FUNCTION esAprobado ( calificacion )
+    implicit none
+    ! Argumentos
+    Real calificacion
+    INTENT (IN) calificacion
+    ! Cuerpo de la función
+    If (calificacion <5) Then
+    esAprobado = .False.
+    Else
+    esAprobado = .True.
+    End if
+    END FUNCTION esAprobado
+
+END PROGRAM EjemploFunciones

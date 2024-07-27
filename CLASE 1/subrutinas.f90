@@ -1,28 +1,47 @@
-PROGRAM PRINCIPAL
-IMPLICIT NONE
- real :: radio, area_base, altura, volumen
- radio = 10
- area_base = 3.1416 * radio**2
+program principal
+  implicit none
 
- call cilindro(radio,area_base, altura, volumen)
- print*, 'Altura: ', altura
- print*, 'Volumen: ', volumen
- print*, 'Area base: ', area_base
+  real :: radio, area_base, altura, volumen
 
-END PROGRAM PRINCIPAL
+  ! Definir valores iniciales
+  radio = 10
+  area_base = 3.1416 * radio**2
 
-subroutine cilindro(radio, area_base, altura, volumen)
- implicit none
- real, PARAMETER :: PI = 3.1416
- real :: radio,area_base,altura,volumen
- INTENT(IN) :: radio !entrada
- INTENT(OUT) :: altura, volumen
- INTENT(INOUT) :: area_base
+  ! Llamada a la subrutina
+  print *, area_base
+  call cilindro(radio, area_base, altura, volumen)
 
- print*, 'Dame la altura del cilindro'
- read*, altura
- volumen = area_base * altura
- print*, 'area base dentro de la subrutina', area_base
- area_base = 2 * PI * radio * altura + 2 * area_base
+  ! Imprimir los resultados
+  print*, 'Altura:', altura
+  print*, 'Volumen:', volumen
+  print*, 'Área Superficial:', area_base
+end program principal
 
- END subroutine CILINDRO
+subroutine asteriscos(n)
+  implicit none !Esta declaración indica que todas las variables deben ser explícitamente declaradas. Esto ayuda a evitar errores por el uso de variables no declaradas.
+  ! Argumentos
+  integer, intent(in) :: n
+  ! Variables
+  integer :: i
+  ! Cuerpo de la subrutina
+  do i = 1, n
+    print*, "*"
+  end do
+end subroutine asteriscos
+
+
+SUBROUTINE cilindro ( radio, area, altura, volumen )
+  implicit none
+  ! Constantes
+  real, parameter :: Pi = 3.1416
+  ! Argumentos
+  real :: radio, area, altura, volumen
+  INTENT (IN) :: radio
+  INTENT (OUT) :: altura, volumen
+  INTENT (INOUT) :: area ! Contiene el área de la base y devuelve el área del cilindro
+  ! Cuerpo de la subrutina
+  print*, "Dame la altura del cilindro"
+  read*, altura
+  volumen = area * altura
+  area = 2 * Pi * radio * altura + 2 * area
+END SUBROUTINE cilindro
