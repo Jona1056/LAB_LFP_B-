@@ -1,0 +1,7 @@
+ digraph G {
+     Suma1 [label="Suma"];
+     Suma1_Num1 [label="4.5"];
+     Suma1_Num2 [label="5.32"];
+     Suma1 -> Suma1_Num1;
+     Suma1 -> Suma1_Num2;
+  }
