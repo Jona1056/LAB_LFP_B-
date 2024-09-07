@@ -7,13 +7,14 @@ program analizador_lexico
     character(len=100) :: tkn
     character(len=1), dimension(26) :: A 
     character(len=1), dimension(26) :: M
-    character(len=1), dimension(4) :: S 
+    character(len=1), dimension(3) :: S 
     character(len=1) :: char_error
     integer, dimension(100,4) :: errores 
-
+    character(len=10000) :: entrada
+    read(*, '(A)') entrada
     A = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     M = ['a','b','c','d','d','f','g','h','i','j','k','k','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-    S = [':','{',';','}','\"']
+    S = [':','{','}']
     estado = 0
     puntero = 1
     columna = 1
@@ -21,17 +22,18 @@ program analizador_lexico
     numErrores = 0
     contenido = ""
 
-    file_unit = 10
-    ! esta parte se reemplaza por su archivo que mandan de python
-    open(unit=file_unit, file='input.txt', status='old', action='read',encoding='utf-8')
-    do
-        read(file_unit, '(A)', iostat=ios) buffer
-        if (ios /= 0) exit
-        contenido = trim(contenido) // trim(buffer) // new_line('a')
-    end do
+    contenido = trim(entrada)
+    ! file_unit = 10
+    ! ! esta parte se reemplaza por su archivo que mandan de python
+    ! open(unit=file_unit, file='input.txt', status='old', action='read',encoding='utf-8')
+    ! do
+    !     read(file_unit, '(A)', iostat=ios) buffer
+    !     if (ios /= 0) exit
+    !     contenido = trim(contenido) // trim(buffer) // new_line('a')
+    ! end do
 
     len = len_trim(contenido)
-    close(file_unit)
+    ! close(file_unit)
 
 
     do while(puntero <= len)
@@ -122,8 +124,9 @@ program analizador_lexico
             char_error = achar(errores(i,1))
             print *, "Error en caracter: ", char_error, " Linea: ", errores(i,4), "Columna: ", errores(i,3)
         end do
+    else 
+        print *, trim("No hubieron Errores")
     end if
-    print *, "Fin del analisis lexico, no hubieron errores"
 
 
 
